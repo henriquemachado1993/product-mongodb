@@ -1,5 +1,5 @@
 # MongoDB .NET Core Demo
-Este é um projeto de demonstração simples para interação com o MongoDB usando .NET Core 6. Ele inclui uma aplicação de console básica para realizar operações CRUD em coleções de produtos e categorias.
+Este é um projeto de demonstração simples para interação com o MongoDB usando .NET Core 6. Ele inclui uma aplicação WebApi RESTful básica com Swagger para realizar operações CRUD em coleções de produtos e categorias.
 
 ## Recursos
 MongoDB Driver: Utiliza o driver oficial do MongoDB para .NET (MongoDB.Driver) para se conectar ao banco de dados MongoDB.
