@@ -17,6 +17,26 @@ namespace ProductRegistrationMongoDB.Controllers
             _productService = productService;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<List<Product>>> Get()
+        {
+            var products = await _productService.GetAllAsync();
+            return Ok(products);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Product>> Get(string id)
+        {
+            var produto = await _productService.GetByIdAsync(id);
+
+            if (produto == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(produto);
+        }
+
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] ProductRequestModel product)
         {
@@ -25,7 +45,7 @@ namespace ProductRegistrationMongoDB.Controllers
             {
                 Id = ObjectId.Parse(product.Id),
                 Name = product.Name,
-                CategoryId = ObjectId.Parse(product.CategoryId),
+                Categories = product.Categories,
                 Price = product.Price
             });
 
@@ -33,11 +53,40 @@ namespace ProductRegistrationMongoDB.Controllers
             return CreatedAtAction(nameof(Get), new { id = product.Id }, product);
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<Product>>> Get()
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put([FromBody] ProductRequestModel product)
         {
-            var products = await _productService.GetAllAsync();
-            return Ok(products);
+            if (await _productService.GetByIdAsync(product.Id) == null)
+            {
+                return NotFound();
+            }
+
+            // TODO: colocar automapper.
+            await _productService.UpdateAsync(new Product()
+            {
+                Id = ObjectId.Parse(product.Id),
+                Name = product.Name,
+                Categories = product.Categories,
+                Price = product.Price
+            });
+
+            return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(string id)
+        {
+            var produto = await _productService.GetByIdAsync(id);
+
+            if (produto == null)
+            {
+                return NotFound();
+            }
+
+            await _productService.DeleteAsync(id);
+
+            return NoContent();
+        }
+
     }
 }

@@ -7,10 +7,10 @@ namespace ProductRegistrationMongoDB.Domain.Entities
     {
         [BsonId]
         public ObjectId Id { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public decimal Price { get; set; }
 
-        public ObjectId CategoryId{ get; set; }
+        public List<string>? Categories { get; set; }
 
     }
 }

@@ -40,16 +40,19 @@ namespace ProductRegistrationMongoDB.Infra.Repositories
             return result;
         }
 
-        public async Task CreateAsync(T entity)
+        public async Task<T> CreateAsync(T entity)
         {
             await _collection.InsertOneAsync(entity);
+            return entity;
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task<T> UpdateAsync(T entity)
         {
             // Assumindo que a entidade tem um campo chamado "Id"
             var id = (ObjectId)entity.GetType().GetProperty("Id").GetValue(entity, null);
             await _collection.ReplaceOneAsync(Builders<T>.Filter.Eq("_id", id), entity);
+
+            return entity;
         }
 
         public async Task DeleteAsync(ObjectId id)
