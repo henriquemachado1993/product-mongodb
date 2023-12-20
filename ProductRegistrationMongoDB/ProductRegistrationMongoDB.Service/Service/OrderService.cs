@@ -5,11 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProductRegistrationMongoDB.Domain.Entities
+namespace ProductRegistrationMongoDB.Service.Service
 {
-    public class OrderItem
+    public class OrderService : IOrderService
     {
-        public int ProductId { get; set; }
-        public int Quantity { get; set; }
     }
 }

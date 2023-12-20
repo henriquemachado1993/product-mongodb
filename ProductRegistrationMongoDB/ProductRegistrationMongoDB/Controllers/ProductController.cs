@@ -53,7 +53,7 @@ namespace ProductRegistrationMongoDB.Controllers
             return CreatedAtAction(nameof(Get), new { id = product.Id }, product);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<ActionResult> Put([FromBody] ProductRequestModel product)
         {
             if (await _productService.GetByIdAsync(product.Id) == null)

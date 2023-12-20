@@ -30,7 +30,8 @@ namespace ProductRegistrationMongoDB.Infra.Repositories
 
         public async Task<T> GetByIdAsync(ObjectId id)
         {
-            var result = await _collection.Find(entity => entity.GetType().GetProperty("Id").GetValue(entity).Equals(id)).FirstOrDefaultAsync();
+            Expression<Func<T, bool>> filterExpression = entity => ((IId)entity).Id == id;
+            var result = await _collection.Find(filterExpression).FirstOrDefaultAsync();
             return result;
         }
 

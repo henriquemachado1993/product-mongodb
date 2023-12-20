@@ -1,0 +1,54 @@
+﻿using MongoDB.Bson;
+using ProductRegistrationMongoDB.Domain.Entities;
+using ProductRegistrationMongoDB.Domain.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProductRegistrationMongoDB.Service.Service
+{
+    public class UserService : IUserService
+    {
+
+        private readonly IBaseRepository<User> _repository;
+
+        public UserService(IBaseRepository<User> repository)
+        {
+            _repository = repository;
+        }
+
+        public async Task<User> CreateAsync(User user)
+        {
+            return await _repository.CreateAsync(user);
+        }
+        public async Task<User> UpdateAsync(User user)
+        {
+            return await _repository.UpdateAsync(user);
+        }
+
+        public async Task DeleteAsync(string id)
+        {
+            await _repository.DeleteAsync(new ObjectId(id));
+        }
+
+        public async Task<List<User>> FindAsync(Expression<Func<User, bool>> filterExpression)
+        {
+            return await _repository.FindAsync(filterExpression);
+        }
+
+        public async Task<List<User>> GetAllAsync()
+        {
+            return await _repository.FindAsync(_ => true);
+        }
+
+        public async Task<User> GetByIdAsync(string id)
+        {
+            return await _repository.GetByIdAsync(new ObjectId(id));
+        }
+
+        
+    }
+}

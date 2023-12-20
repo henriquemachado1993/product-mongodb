@@ -3,6 +3,7 @@ using ProductRegistrationMongoDB.Domain.Interfaces;
 using ProductRegistrationMongoDB.Infra.Context;
 using ProductRegistrationMongoDB.Infra.Repositories;
 using ProductRegistrationMongoDB.Service;
+using ProductRegistrationMongoDB.Service.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace ProductRegistrationMongoDB.Infra.Dependencies
 
             // Services
             svcCollection.AddScoped<IProductService, ProductService>();
+            svcCollection.AddScoped<IOrderService, OrderService>();
+            svcCollection.AddScoped<IUserService, UserService>();
         }
     }
 }
