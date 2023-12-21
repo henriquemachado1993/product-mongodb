@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using ProductRegistrationMongoDB.Domain.Entities;
 using ProductRegistrationMongoDB.Domain.Interfaces;
@@ -17,6 +18,7 @@ namespace ProductRegistrationMongoDB.Controllers
             _userService = service;
         }
 
+        [Authorize("Bearer")]
         [HttpGet]
         public async Task<ActionResult<List<User>>> Get()
         {
@@ -24,6 +26,7 @@ namespace ProductRegistrationMongoDB.Controllers
             return Ok(result);
         }
 
+        [Authorize("Bearer")]
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> Get(string id)
         {
@@ -37,6 +40,7 @@ namespace ProductRegistrationMongoDB.Controllers
             return Ok(result);
         }
 
+        [Authorize("Bearer")]
         [HttpGet("get-by-name/{name}")]
         public async Task<ActionResult<List<User>>> GetByName(string name)
         {
@@ -58,6 +62,7 @@ namespace ProductRegistrationMongoDB.Controllers
             {
                 Name = user.Name,
                 Email = user.Email,
+                Password = user.Password,
                 Address = new Address()
                 {
                     City = user.Address.City,
@@ -68,6 +73,7 @@ namespace ProductRegistrationMongoDB.Controllers
             return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
         }
 
+        [Authorize("Bearer")]
         [HttpPut]
         public async Task<ActionResult> Put([FromBody] UserRequestModel user)
         {
@@ -82,6 +88,7 @@ namespace ProductRegistrationMongoDB.Controllers
                 Id = ObjectId.Parse(user.Id),
                 Name = user.Name,
                 Email = user.Email,
+                Password = user.Password,
                 Address = new Address()
                 {
                     City = user.Address.City,
@@ -91,6 +98,7 @@ namespace ProductRegistrationMongoDB.Controllers
             }));
         }
 
+        [Authorize("Bearer")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(string id)
         {
@@ -105,6 +113,5 @@ namespace ProductRegistrationMongoDB.Controllers
 
             return NoContent();
         }
-
     }
 }

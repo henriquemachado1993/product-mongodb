@@ -12,21 +12,26 @@ namespace ProductRegistrationMongoDB.Service.Service
 {
     public class UserService : IUserService
     {
-
         private readonly IBaseRepository<User> _repository;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public UserService(IBaseRepository<User> repository)
+        public UserService(IBaseRepository<User> repository, IPasswordHasher passwordHasher)
         {
             _repository = repository;
+            _passwordHasher = passwordHasher;
         }
 
         public async Task<User> CreateAsync(User user)
         {
             user.Id = ObjectId.GenerateNewId();
+            user.Password = _passwordHasher.HashPassword(user.Password);
             return await _repository.CreateAsync(user);
         }
-        public async Task<User> UpdateAsync(User user)
+        public async Task<User> UpdateAsync(User user, bool isUpdatePassword = true)
         {
+            if(isUpdatePassword)
+                user.Password = _passwordHasher.HashPassword(user.Password);
+
             return await _repository.UpdateAsync(user);
         }
 

@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using ProductRegistrationMongoDB.Domain.Interfaces;
+using ProductRegistrationMongoDB.Infra.Auth;
 using ProductRegistrationMongoDB.Infra.Context;
 using ProductRegistrationMongoDB.Infra.Repositories;
 using ProductRegistrationMongoDB.Service;
@@ -18,7 +20,7 @@ namespace ProductRegistrationMongoDB.Infra.Dependencies
         {
             // Context
             svcCollection.AddScoped<MongoDBContext>();
-
+            
             // Repositories
             svcCollection.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
@@ -26,6 +28,10 @@ namespace ProductRegistrationMongoDB.Infra.Dependencies
             svcCollection.AddScoped<IProductService, ProductService>();
             svcCollection.AddScoped<IOrderService, OrderService>();
             svcCollection.AddScoped<IUserService, UserService>();
+
+            // Auth
+            svcCollection.AddScoped<IAuthService, AuthService>();
+            svcCollection.AddSingleton<IPasswordHasher, BCryptPasswordHasher>();
         }
     }
 }

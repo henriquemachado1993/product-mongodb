@@ -14,7 +14,7 @@ namespace ProductRegistrationMongoDB.Domain.Interfaces
         public Task<User> GetByIdAsync(string id);
         public Task<List<User>> FindAsync(Expression<Func<User, bool>> filterExpression);
         public Task<User> CreateAsync(User user);
-        public Task<User> UpdateAsync(User user);
+        public Task<User> UpdateAsync(User user, bool isUpdatePassword = true);
         public Task DeleteAsync(string id);
     }
 }
