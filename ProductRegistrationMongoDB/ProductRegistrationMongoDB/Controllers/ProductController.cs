@@ -62,15 +62,13 @@ namespace ProductRegistrationMongoDB.Controllers
             }
 
             // TODO: colocar automapper.
-            await _productService.UpdateAsync(new Product()
+            return Ok(await _productService.UpdateAsync(new Product()
             {
                 Id = ObjectId.Parse(product.Id),
                 Name = product.Name,
                 Categories = product.Categories,
                 Price = product.Price
-            });
-
-            return NoContent();
+            }));
         }
 
         [HttpDelete("{id}")]

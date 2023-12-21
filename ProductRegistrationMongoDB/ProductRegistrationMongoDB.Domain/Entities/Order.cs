@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProductRegistrationMongoDB.Domain.Entities
 {
-    public class Order : IId
+    public class Order : IBaseEntity
     {
         [BsonId]
         public ObjectId Id { get; set; }

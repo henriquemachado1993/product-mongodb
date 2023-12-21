@@ -4,7 +4,7 @@ using ProductRegistrationMongoDB.Domain.Interfaces;
 
 namespace ProductRegistrationMongoDB.Domain.Entities
 {
-    public class Category : IId
+    public class Category : IBaseEntity
     {
         [BsonId]
         public ObjectId Id { get; set; }

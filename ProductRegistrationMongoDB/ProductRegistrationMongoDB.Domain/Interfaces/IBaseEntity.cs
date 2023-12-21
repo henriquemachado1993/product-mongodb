@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProductRegistrationMongoDB.Domain.Interfaces
 {
-    public interface IId
+    public interface IBaseEntity
     {
         ObjectId Id { get; set; }
     }
