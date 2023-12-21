@@ -56,7 +56,6 @@ namespace ProductRegistrationMongoDB.Controllers
             // TODO: colocar automapper.
             await _userService.CreateAsync(new User()
             {
-                Id = ObjectId.Parse(user.Id),
                 Name = user.Name,
                 Email = user.Email,
                 Address = new Address()

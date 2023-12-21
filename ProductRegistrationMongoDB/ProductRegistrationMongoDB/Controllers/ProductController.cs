@@ -43,7 +43,6 @@ namespace ProductRegistrationMongoDB.Controllers
             // TODO: colocar automapper.
             await _productService.CreateAsync(new Product()
             {
-                Id = ObjectId.Parse(product.Id),
                 Name = product.Name,
                 Categories = product.Categories,
                 Price = product.Price

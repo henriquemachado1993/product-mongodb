@@ -16,6 +16,7 @@ namespace ProductRegistrationMongoDB.Service
 
         public async Task<Product> CreateAsync(Product product)
         {
+            product.Id = ObjectId.GenerateNewId();
             return await _repository.CreateAsync(product);
         }
 
