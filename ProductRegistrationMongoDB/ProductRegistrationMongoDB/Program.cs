@@ -3,6 +3,7 @@ using ProductRegistrationMongoDB.Domain.Entities;
 using ProductRegistrationMongoDB.Domain.Interfaces;
 using ProductRegistrationMongoDB.Infra.Context;
 using ProductRegistrationMongoDB.Infra.Dependencies;
+using ProductRegistrationMongoDB.Infra.Middlewares;
 using ProductRegistrationMongoDB.Infra.Repositories;
 using ProductRegistrationMongoDB.Service;
 using System.Reflection;
@@ -54,5 +55,7 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProductRegistrationMongoDB V1");
 });
 
+// Middleware
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.Run();
